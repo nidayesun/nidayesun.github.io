@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #05070f;
+        }
+        .big {
+            transform-style: preserve-3D;
+            width: 500px;
+            height: 500px;
+            margin: 50px auto 0;
+            transform:rotateZ(10deg);
+            animation: fun 10s infinite linear;
+        }
+        .big div {
+            width: 500px;
+            height: 500px;
+            border: 1px solid #7e9eff;
+            border-radius: 50%;
+            position: absolute;
+        }
+        @keyframes fun {
+            from {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            to {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+
+        }
+        .big div:nth-child(2) {
+            transform: rotateY(30deg);
+        }
+        .big div:nth-child(3) {
+            transform: rotateY(60deg);
+        }
+        .big div:nth-child(4) {
+            transform: rotateY(90deg);
+        }
+        .big div:nth-child(5) {
+            transform: rotateY(120deg);
+        }
+        .big div:nth-child(6) {
+            transform: rotateY(150deg);
+        }
+        .big div:nth-child(7) {
+            transform: rotateX(90deg);
+        }
+    </style>
+</head>
+<body>
+<div class="big">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+</body>
+</html>

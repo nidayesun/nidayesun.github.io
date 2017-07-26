@@ -16,6 +16,7 @@
             o[k] = obj[kv[k]] + step;
         }
         return o;
+        console.log(o)
     }
 
     var setStyle = function (target) {
@@ -37,16 +38,22 @@
             for (var k in target) {
                 var kLength = Object.getOwnPropertyNames(target).length;//获取对象里有几个属性
                 g = obj[kv[k]] > target[k] ? -5 : 5;
+                // console.log(g)
+                // console.log(obj[kv[k]])
+                // console.log(target)
                 step = step + g;
                 //封装成对象的形式
                 isTarget = getAtrr(obj, target, step);
+                console.log(isTarget)
                 if (isTarget[k] >= target[k] && g > 0 || isTarget[k] <= target[k] && g < 0) {
                     num++;
                     if (kLength == 1) {
                         step = -0.5 * step;
-                    } else if (isTarget[k] == target[k]) {
-                        step = -0.5 * step;
                     }
+                     else if (isTarget[k] == target[k]) {
+                        step = -0.5 * step;
+                        console.log(step)
+                     }
                     if (g > 0) {
                         isTarget[k] = target[k];
                     }

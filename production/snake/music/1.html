@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="ajjs/angularjs.js"></script>
+    <script>
+        var myApp = angular.module("myApp", []);
+        //控制器Self
+        myApp.controller("Self", function($scope, $window) {
+            //button的传播事件
+            $scope.toParent = function() {
+                //注册一个向上传播的事件，eventName:'FromSelf', data:oneObject
+                $scope.$emit("FromSelf", {
+                    divName: "Self",
+                    description: "向父传播数据"
+                });
+            };
+            $scope.toChild = function() {
+                //注册一个向下传播的事件，eventName:'FromSelf', data:oneObject
+                $scope.$broadcast("FromSelf", {
+                    divName: "Self",
+                    description: "向子传播数据"
+                });
+            };
+            $scope.name = "Self";
+            $scope.$on("FromChild", function(event, data) {
+
+                $window.alert("当前节点" + event.currentScope.name + "截获到了来自" + data.divName + "的事件：" + event.name + "，它的作用是" + data.description);
+            });
+
+        });
+        //控制器Parent
+        myApp.controller("Parent", function($scope, $window) {
+
+            $scope.name = "Parent";
+            //$on用于事件
+            $scope.$on("FromSelf", function(event, data) {
+                $window.alert("当前节点" + event.currentScope.name + ",截获到了来自" + data.divName + "的事件：" + event.name + "，它的作用是" + data.description);
+            });
+            $scope.$on("FromChild", function(event, data) {
+                $window.alert("当前节点" + event.currentScope.name + ",截获到了来自" + data.divName + "的事件：" + event.name + "，它的作用是" + data.description);
+            });
+
+        });
+        //控制器Child
+        myApp.controller("Child", function($scope, $window) {
+            $scope.name = "Child";
+            //$on用于截获来自父级作用域的事件
+            $scope.$on("FromSelf", function(event, data) {
+                $window.alert("当前节点" + event.currentScope.name + "截获到了来自" + data.divName + "的事件：" + event.name + "，它的作用是" + data.description);
+            });
+
+            //button的传播事件
+            $scope.toTop = function() {
+                //注册一个向上传播的事件，eventName:'FromChild', data:oneObject
+                $scope.$emit("FromChild", {
+                    divName: "Child",
+                    description: "向上播数据"
+                });
+            };
+
+        });
+    </script>
+
+</head>
+
+<body>
+    <form name="test">
+        <div ng-controller="Parent">
+            这里是父级Div
+            <div ng-controller="Self">
+                这里是子级SelfDiv
+                <input type="button" ng-click="toParent()" value="向ParentDiv传播事件" />
+                <input type="button" ng-click="toChild()" value="向ChildDiv传播事件" />
+                <div ng-controller="Child">
+                    这里是子级ChildDiv
+                    <input type="button" ng-click="toTop()" value="向上传播事件" />
+                </div>
+            </div>
+            <div ng-controller="Borther">
+                这里是Self的兄弟BortherDiv
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>

@@ -27,7 +27,7 @@ for (var i = 0; i < showreelButtons.length; i++) {
         }
     }
 }
-
+// console.log('widows')
 //ÆÁÄ»ÇÐ»»Çø¿é
 var touchIconBs = document.getElementsByClassName('touchIconB');
 var touchIconTs = document.getElementsByClassName('touchIconT');
